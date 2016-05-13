@@ -11,6 +11,7 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *billAmountTextField;
 @property (weak, nonatomic) IBOutlet UILabel *tipAmountLabel;
+@property (weak, nonatomic) IBOutlet UITextField *tipPercentageTextField;
 
 @end
 
@@ -18,9 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UILabel *tipAmountLabel = 
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,14 +29,23 @@
 // Have the calculateTip method work out what a 15% tip would be
 - (IBAction)calculateTip:(UIButton *)sender {
     
+    // take tip (15) and make it into percentage (1.15)
+    double tipPercentage = [self.tipPercentageTextField.text doubleValue] / 100.0 + 1;
+    NSLog(@"user inputs tipPercentage: %.2f",tipPercentage);
+    
     // userinput(NSString)-> (doubleValue)
-    double billAmount = [self.billAmountTextField.text doubleValue];
+    double billAmount = [self.billAmountTextField.text doubleValue] ;
     NSLog(@"user input was: $%.2f", billAmount);
-    double calculateTip = billAmount * 1.15;
+    double calculateTip = billAmount * tipPercentage;
     NSLog(@"included tip: $%.2f", calculateTip);
 //    [self.calculateTip calculateTip];
+    
+    // get calcurated tip(NSString) -> double using stringWithFormat:@""
+    self.tipAmountLabel.text = [NSString stringWithFormat:@"included tip: $%.2f", calculateTip];
+    
+    
 }
 
-    
+
 
 @end
